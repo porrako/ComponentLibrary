@@ -1,0 +1,232 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+}
+body{
+    background-color: #101010;
+    color: #eee;
+}
+header h1{
+    text-align: center;
+    font-size: 3em;
+    padding: 20px 0;
+}
+main{
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: 
+        repeat(
+            auto-fit,
+            minmax(350px, 1fr)
+        );
+    gap: 20px;
+    width: 95%;
+}
+.card h2{
+    font-size: 2em;
+    margin-bottom: 0.2em;
+}
+.card p{
+    font-size: 18px;
+    color: #999;
+    text-wrap: pretty;
+    letter-spacing: 1px;
+}
+.card{
+    margin: 0 auto;
+    margin-bottom: 10px;
+    padding: 2em;
+    height: 320px;
+    border-radius: 10px;
+    background-color: #222;
+    position: relative;
+}
+/*      GLOW STATIC     */
+.glow::after{   /*  Border of the card  */
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background-image: conic-gradient(rgb(140, 0, 255), red, rgb(140, 0, 255));
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    padding: 4px;
+    border-radius: 10px;
+}
+.glow::before{  /*  This is the same as the border to make the blur with the same colors    */
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background-image: conic-gradient(rgb(140, 0, 255), red, rgb(140, 0, 255));
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    padding: 4px;
+    border-radius: 10px;
+}
+.glow::before{  /*  This is the actual effect   */
+    filter: blur(0.8rem);
+    opacity: 0.6;
+}
+/*      MOVING LINE     */
+@property --angle{ /*   This lets us make the animation, with regular variables you are not able to make it     */
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+@keyframes spin{ /*     This is the spinning animation       */
+    from{
+        --angle: 0deg;
+    }
+    to{
+        --angle: 360deg;
+    }
+}
+.line::after{   /*  Border of the card  */
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background-image: conic-gradient(from var(--angle), transparent 90%, rgb(140, 0, 255));
+    animation: 4s spin linear infinite;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    padding: 2px;
+    border-radius: 10px;
+}
+
+.line::before{  /*  This is to make the blur spin, if you only need the line erase this and the next one    */
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background-image: conic-gradient(from var(--angle), transparent 90%, rgb(140, 0, 255));
+    animation: 4s spin linear infinite;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    padding: 4px;
+    border-radius: 10px;
+}
+.line::before{  /*  Glow effect to make it better   */
+    filter: blur(1rem);
+    opacity: 1;
+}
+/*      UNDERLINE     */
+.h1-underline{
+    position: relative;
+}
+@property --percentage{ /*   This lets us make the animation, with regular variables you are not able to make it     */
+    syntax: "<percentage>";
+    initial-value: 0%;
+    inherits: false;
+}
+@keyframes full-size{ /*     This is the animation to make visible the underline from left to right       */
+    from{
+        --percentage: 0%;
+    }
+    to{
+        --percentage: 100%;
+    }
+}
+.underline::after{   /*  underline of the h1  */
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    translate: -50% -50%;
+    background-image: linear-gradient(to right, rgb(140, 0, 255), rgb(50, 255, 170), transparent var(--percentage));
+    animation: 3s full-size forwards;;
+    width: 100%;
+    height: 4%;
+    z-index: 1;
+}
+/*      GLOW BLINKING     */
+@keyframes glow{    /*  Animation to make it "glow"   */
+    from{
+        filter: blur(2rem);
+        opacity: 0.2;
+    }
+    to{
+        filter: blur(2rem);
+        opacity: 1;
+    }
+}
+.glow-blink::after{   /*  Border of the card  */
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background-image: conic-gradient(rgb(140, 0, 255), red, rgb(140, 0, 255));
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    padding: 4px;
+    border-radius: 10px;
+}
+.glow-blink::before{  /*  This is the same as the border to make the blur with the same colors    */
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background-image: conic-gradient(rgb(140, 0, 255), red, rgb(140, 0, 255));
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    padding: 4px;
+    border-radius: 10px;
+}
+.glow-blink::before{  /*  Aplly the animation   */
+    animation: 1s glow alternate infinite;
+}
+/*  GLOW ON HOVER EFFECT    */
+.glow-hover::after{   /*  Border of the card  */
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background-image: conic-gradient(rgb(140, 0, 255), red, rgb(140, 0, 255));
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    padding: 4px;
+    border-radius: 10px;
+}
+.glow-hover:hover::before{  /*  This is the same as the border to make the blur with the same colors    */
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background-image: conic-gradient(rgb(140, 0, 255), red, rgb(140, 0, 255));
+    width: 100%;
+    height: 100%;
+    animation: 1s glow alternate infinite;
+    z-index: -1;
+    padding: 4px;
+    border-radius: 10px;
+}
+.glow-hover::before{  /*  This is the actual effect   */
+    filter: blur(2em);
+    opacity: 1;
+}
+
+/*Media Query*/
+@media (max-width: 770px) {
+    main{
+        width: 100%;
+    }
+  }
